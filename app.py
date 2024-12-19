@@ -53,8 +53,7 @@ def welcome():
     )
 
 #Convert the query results from your precipitation analysis     
-    # (i.e. retrieve only the last 12 months of data) to a  
-    # dictionary using date as the key and prcp as the value.
+    # (i.e. retrieve only the last 12 months of data) to a dictionary using date as the key and prcp as the value.
 #Return the JSON representation of your dictionary.
 @app.route("/api/v1.0/precipitation")
 def precipitation():
@@ -74,10 +73,8 @@ def station_list():
     return jsonify(station_list)
 
 @app.route("/api/v1.0/tobs")
-#Query the dates and temperature observations of the    
-    # most-active station for the previous year of data.
-#Return a JSON list of temperature observations for the     
-    # previous year.
+#Query the dates and temperature observations of the most-active station for the previous year of data.
+#Return a JSON list of temperature observations for the previous year.
 def most_active():  
     one_year_most_recent = dt.date(2017,8,23) - dt.timedelta(days=365)
     one_year_most_recent
@@ -92,10 +89,8 @@ def most_active():
     return jsonify(most_active_data)
 
 @app.route("/api/v1.0/<start>")
-#Return a JSON list of the minimum temperature, the average temperature,    
-    # and the maximum temperature for a specified start or start-end range.
-#For a specified start, calculate TMIN, TAVG, and TMAX for all the  
-    # dates greater than or equal to the start date.
+#Return a JSON list of the minimum temperature, the average temperature and the maximum temperature for a specified start or start-end range.
+#For a specified start, calculate TMIN, TAVG, and TMAX for all the dates greater than or equal to the start date.
 def temp_start (start):
     results = session.query(    
         func.min(Measurement.tobs).label('Temp_Min'),   
@@ -111,10 +106,8 @@ def temp_start (start):
     return jsonify(temperature_data)
 
 @app.route("/api/v1.0/<start>/<end>")
-#Return a JSON list of the minimum temperature, the average temperature,    
-    # and the maximum temperature for a specified start or start-end range.
-#For a specified start date and end date, calculate TMIN, TAVG, and TMAX    
-    # for the dates from the start date to the end date, inclusive.
+#Return a JSON list of the minimum temperature, the average temperature and the maximum temperature for a specified start or start-end range.
+#For a specified start date and end date, calculate TMIN, TAVG, and TMAX for the dates from the start date to the end date, inclusive.
 def temp_start_end (start, end):
     results = session.query(    
         func.min(Measurement.tobs).label('Temp_Min'),   
